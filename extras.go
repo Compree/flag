@@ -45,7 +45,9 @@ func (f *FlagSet) ParseEnv(environ []string) error {
 			return f.failf("environment variable provided but not defined: %s", name)
 		}
 
-		envKey := strings.ToUpper(flag.Name)
+		// Do not assume env vars are upper case versions of cmd line params
+		envKey := flag.Name
+		//envKey := strings.ToUpper(flag.Name)
 		if f.envPrefix != "" {
 			envKey = f.envPrefix + "_" + envKey
 		}
